@@ -7,7 +7,7 @@
 #ifndef STRUCTS
 #define STRUCTS
 
-// Estructura para cada pasajero
+
 typedef struct pasajero {
     char genero[20];
     char apellido[MAX_NOMBRE];
@@ -16,15 +16,15 @@ typedef struct pasajero {
 
 #endif
 
-Pasajero *inicio = NULL; // lista de todos los que compraron tiquete
-Pasajero *abordados = NULL; // lista de los que suben
-Pasajero *noAbordados = NULL; // lista de los que no suben
+Pasajero *inicio = NULL; 
+Pasajero *abordados = NULL; 
+Pasajero *noAbordados = NULL; 
 
 int capacidad = 0;
 int totalVendidos = 0;
 int abordajeIniciado = 0;
 
-// Función para crear un nuevo pasajero
+
 Pasajero *crearPasajero(char genero[], char apellido[]) {
     Pasajero *nuevo = (Pasajero *)malloc(sizeof(Pasajero));
     if (nuevo == NULL) {
@@ -37,7 +37,7 @@ Pasajero *crearPasajero(char genero[], char apellido[]) {
     return nuevo;
 }
 
-// Agregar pasajero al final de la lista
+
 void agregarPasajero(Pasajero **lista, Pasajero *nuevo) {
     if (*lista == NULL) {
         *lista = nuevo;
@@ -50,7 +50,7 @@ void agregarPasajero(Pasajero **lista, Pasajero *nuevo) {
     }
 }
 
-// Mostrar lista
+
 void mostrarLista(Pasajero *lista) {
     if (lista == NULL) {
         printf("No hay pasajeros en esta lista.\n");
@@ -65,7 +65,7 @@ void mostrarLista(Pasajero *lista) {
     }
 }
 
-// Contar nodos en una lista
+
 int contarLista(Pasajero *lista) {
     int c = 0;
     Pasajero *temp = lista;
@@ -76,7 +76,7 @@ int contarLista(Pasajero *lista) {
     return c;
 }
 
-// Función para establecer capacidad
+
 void establecerCapacidad() {
     if (capacidad != 0) {
         printf("La capacidad ya fue establecida.\n");
@@ -92,7 +92,7 @@ void establecerCapacidad() {
     printf("Capacidad establecida en %d pasajeros.\n", capacidad);
 }
 
-// Función para vender tiquete
+
 void venderTiquete() {
     if (capacidad == 0) {
         printf("Primero debe establecer la capacidad del avion.\n");
@@ -103,7 +103,7 @@ void venderTiquete() {
         return;
     }
 
-    // Calculo del limite de sobreventa (10% redondeado hacia arriba)
+    
     int limite = capacidad + (capacidad + 9) / 10;
     if (totalVendidos >= limite) {
         printf("Se alcanzo el limite de sobreventa (%d pasajeros).\n", limite);
@@ -122,7 +122,7 @@ void venderTiquete() {
     printf("Tiquete vendido con exito.\n");
 }
 
-// Función para iniciar abordaje
+
 void iniciarAbordaje() {
     if (abordajeIniciado) {
         printf("El abordaje ya se inicio.\n");
@@ -155,26 +155,26 @@ void iniciarAbordaje() {
            subieron, noAb);
 }
 
-// Función para mostrar no abordados con el nuevo resumen solicitado
+
 void verNoAbordados() {
     if (!abordajeIniciado) {
         printf("\nAun no se ha iniciado el abordaje, no hay lista disponible.\n");
         return;
     }
 
-    // contar cuántos abordaron
+    
     int boarded = contarLista(abordados);
 
-    // si se vendió más o igual que la capacidad, "quedaron por fuera" son pasajeros que no caben
+    
     if (totalVendidos >= capacidad) {
-        int quedaronFuera = totalVendidos - boarded; // personas que compraron pero no subieron
-        // Mensaje resumen
+        int quedaronFuera = totalVendidos - boarded; 
+        
         if (boarded == 1)
             printf("\n1 pasajero abordo, %d quedaron por fuera.\n", quedaronFuera);
         else
             printf("\n%d pasajeros abordaron, %d quedaron por fuera.\n", boarded, quedaronFuera);
 
-        // mostrar lista de los que no abordaron (si existe)
+        
         if (noAbordados != NULL) {
             printf("\n--- LISTA: Pasajeros que no abordaron ---\n");
             mostrarLista(noAbordados);
@@ -182,7 +182,7 @@ void verNoAbordados() {
             if (quedaronFuera == 0) {
                 printf("No hay pasajeros que no abordaron.\n");
             } else {
-                // respaldo: construir lista virtual desde 'inicio'
+                
                 printf("\n--- LISTA: Pasajeros que no abordaron (generada) ---\n");
                 Pasajero *temp = inicio;
                 int idx = 0;
@@ -200,20 +200,20 @@ void verNoAbordados() {
         return;
     }
 
-    // Si se vendió menos que la capacidad: "quedaron por fuera" = asientos vacíos
+    
     int asientosVacios = capacidad - boarded;
     if (boarded == 1)
         printf("\n1 pasajero abordo, %d quedaron por fuera.\n", asientosVacios);
     else
         printf("\n%d pasajeros abordaron, %d quedaron por fuera.\n", boarded, asientosVacios);
 
-    // como no hay personas fuera (porque se vendió menos que la capacidad), no mostramos lista de noAbordados.
+    
     if (asientosVacios > 0) {
         printf("Nota: %d asientos quedan vacios.\n", asientosVacios);
     }
 }
 
-// Menú principal
+
 int main() {
     int opcion = 0;
 
@@ -253,7 +253,7 @@ int main() {
         }
     } while (opcion != 6);
 
-    // Liberar memoria
+    
     Pasajero *temp;
     while (inicio != NULL) {
         temp = inicio;
