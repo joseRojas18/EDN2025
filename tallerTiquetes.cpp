@@ -7,11 +7,11 @@ using namespace std;
 struct Nodo {
     int doc;
     char destino[20];
-    int tipo; // 0 = Ida, 1 = Ida y Regreso
+    int tipo; 
     Nodo *izq, *der;
 };
 
-// ===== Funciones Básicas =====
+
 Nodo* crear(int d, const char* dest, int t) {
     Nodo* n = new Nodo;
     n->doc = d;
@@ -57,9 +57,9 @@ Nodo* eliminar(Nodo* r, int d) {
     return r;
 }
 
-// ===== Interfaz sencilla =====
+
 void titulo() {
-    system("cls"); // Windows, en Linux: system("clear");
+    system("cls"); 
     cout << "===========================================\n";
     cout << " SISTEMA DE TIQUETES - MUELLE BUENAVENTURA \n";
     cout << "===========================================\n\n";
@@ -77,7 +77,7 @@ void menu() {
     cout << "Opcion: ";
 }
 
-// ===== MAIN =====
+
 int main() {
     Nodo* raiz = nullptr;
     int op;
